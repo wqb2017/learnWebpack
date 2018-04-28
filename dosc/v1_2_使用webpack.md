@@ -1,6 +1,4 @@
-# webpack
-
-[webpack github 地址](https://github.com/webpack-contrib)
+# 使用 webpack
 
 ## 项目结构
 
@@ -17,27 +15,17 @@
 
 ## 步骤
 
-1. 全局安装 webpack
-   npm install webpack<@versions> -g
-
-2. 初始化项目
-   npm init
-
-3. 项目中安装 webpack
-   npm install webpack@3 --save-dev  
-   我这里安装的是 webpack 3 点几版本的，截止目前【20180428】webpack 最新版本为 webpack4.
-
 4. 根据项目结构创建对应的文件
 
 ```js
-./src/main.js;
+src / main.js;
 import { show } from './show';
 console.log('main.js');
 show();
 ```
 
 ```js
-./src/show.js;
+src / show.js;
 require('./show.css');
 export function show(params) {
   document.getElementById('box').innerHTML = 'show';
@@ -46,7 +34,7 @@ export function show(params) {
 ```
 
 ```css
-./src/show.css;
+src/show.css;
 #box {
   font-size: 20px;
 }
