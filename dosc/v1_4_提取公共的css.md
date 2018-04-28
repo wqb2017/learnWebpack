@@ -1,25 +1,16 @@
-const path = require('path');
+# 提取公共样式
+
+```js
+//1. 引入extract-text-webpack-plugin'
 let ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
 
+//2. 配置plugin
 module.exports = {
-  // 入口文件
-  entry: {
-    main: './src/main.js',
-  },
-  //输出文件
-  output: {
-    // 把所有依赖的模块合并输出到一个 bundle.js 文件
-    filename: 'bundle.js',
-    // 输出文件都放到 dist 目录下
-    path: path.resolve(__dirname, './dist'),
-  },
-  //各模块文件采用对应的loader解析
   module: {
     rules: [
       //解析css文件
       {
         test: /\.css$/,
-        //解析顺序又右到左，后面的【?minimize】是参数表示压缩css
         use: ExtractTextWebpackPlugin.extract({
           // 转换 .css 文件需要使用的 Loader
           use: ['css-loader?minimize'],
@@ -34,3 +25,5 @@ module.exports = {
     }),
   ],
 };
+// 注意：记得修改css loader的解析方式
+```

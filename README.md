@@ -30,14 +30,14 @@
 4. 根据项目结构创建对应的文件
 
 ```js
-./src/main.js;
+// ./src/main.js;
 import { show } from './show';
 console.log('main.js');
 show();
 ```
 
 ```js
-./src/show.js;
+// ./src/show.js;
 require('./show.css');
 export function show(params) {
   document.getElementById('box').innerHTML = 'show';
@@ -46,14 +46,14 @@ export function show(params) {
 ```
 
 ```css
-./src/show.css;
+// ./src/show.css;
 #box {
   font-size: 20px;
 }
 ```
 
-```html
-./index.html;
+```js
+// ./index.html;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,7 +72,7 @@ export function show(params) {
 5. 创建 webpack.config.js 文件并配置
 
 ```js
-./webpack.config.js
+// ./webpack.config.js
 const path = require('path');
 
 module.exports = {
@@ -116,4 +116,45 @@ npm install style-loader css-loader --save-dev
 8. 运行 webpack
    npm run start
 
+结果：
+![](./dosc/img/v1.png)
+
 上面的【npm run start】和执行【webpack --config webpack.config.js"】结果是一样的
+
+## 提取公共的 css
+
+1. 安装 loader
+   npm install extract-text-webpack-plugin --save-dev
+
+2. 配置 plugin
+
+```js
+//1. 引入extract-text-webpack-plugin'
+let ExtractTextWebpackPlugin = require('extract-text-webpack-plugin');
+
+//2. 配置plugin
+module.exports = {
+  module: {
+    rules: [
+      //解析css文件
+      {
+        test: /\.css$/,
+        use: ExtractTextWebpackPlugin.extract({
+          // 转换 .css 文件需要使用的 Loader
+          use: ['css-loader?minimize'],
+        }),
+      },
+    ],
+  },
+  plugins: [
+    new ExtractTextWebpackPlugin({
+      // 从 .js 文件中提取出来的 .css 文件的名称
+      filename: `[name]_[contenthash:8].css`,
+    }),
+  ],
+};
+// 注意：记得修改css loader的解析方式
+```
+
+结果：
+![](./dosc/img/v2.png)
